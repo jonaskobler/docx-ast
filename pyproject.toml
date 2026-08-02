@@ -1,6 +1,6 @@
 [project]
 name = "docx-ast"
-version = "0.1.0"
+version = "0.2.0"
 description = "A lossless Word (.docx / OOXML) <-> AST engine: read, edit, highlight, comment and make tracked-change edits to Word documents."
 readme = "README.md"
 requires-python = ">=3.10"
@@ -16,6 +16,7 @@ classifiers = [
 dependencies = [
     "lxml",
     "diff-match-patch",
+    "types-lxml"
 ]
 
 [project.urls]
@@ -23,11 +24,20 @@ Homepage = "https://github.com/jonaskobler/docx-ast"
 Repository = "https://github.com/jonaskobler/docx-ast"
 
 [project.optional-dependencies]
-test = ["pytest"]
+test = ["pytest", "testemate @ git+https://github.com/jonaskobler/testemate.git",]
 
 [build-system]
 requires = ["hatchling"]
 build-backend = "hatchling.build"
 
+# testemate (the expect fixture, tests/test_xml_utils.py) is a git dependency;
+# hatchling refuses direct references in project metadata without this.
+[tool.hatch.metadata]
+allow-direct-references = true
+
 [tool.hatch.build.targets.wheel]
-packages = ["src/docx_ast"]
+packages = ["src/docx_ast", "src/xml_utils"]
+
+[tool.pytest.ini_options]
+pythonpath = ["src"]
+testpaths = ["tests"]
