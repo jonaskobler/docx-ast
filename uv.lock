@@ -135,15 +135,17 @@ wheels = [
 
 [[package]]
 name = "docx-ast"
-version = "0.1.0"
+version = "0.2.1"
 source = { editable = "." }
 dependencies = [
     { name = "diff-match-patch" },
     { name = "lxml" },
-    { name = "types-lxml" },
 ]
 
 [package.optional-dependencies]
+dev = [
+    { name = "types-lxml" },
+]
 test = [
     { name = "pytest" },
     { name = "testemate" },
@@ -155,9 +157,9 @@ requires-dist = [
     { name = "lxml" },
     { name = "pytest", marker = "extra == 'test'" },
     { name = "testemate", marker = "extra == 'test'", git = "https://github.com/jonaskobler/testemate.git" },
-    { name = "types-lxml" },
+    { name = "types-lxml", marker = "extra == 'dev'" },
 ]
-provides-extras = ["test"]
+provides-extras = ["test", "dev"]
 
 [[package]]
 name = "exceptiongroup"
